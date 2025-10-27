@@ -2,10 +2,18 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isContactDialogOpen, setIsContactDialogOpen] = useState(false);
   const navigate = useNavigate();
 
   const scrollToSection = (sectionId: string) => {
@@ -77,12 +85,13 @@ const Header = () => {
             >
               Blog
             </a>
-            <a 
-              href="mailto:firstdraftfilmworks@gmail.com"
+            <Button 
+              onClick={() => setIsContactDialogOpen(true)}
+              variant="ghost"
               className="text-foreground hover:text-primary transition-colors"
             >
               Contact Me
-            </a>
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -139,15 +148,30 @@ const Header = () => {
             >
               Blog
             </a>
-            <a 
-              href="mailto:firstdraftfilmworks@gmail.com"
-              className="block text-foreground hover:text-primary transition-colors"
+            <Button 
+              onClick={() => {
+                setIsContactDialogOpen(true);
+                setIsMenuOpen(false);
+              }}
+              variant="ghost"
+              className="block w-full text-left text-foreground hover:text-primary transition-colors p-0"
             >
               Contact Me
-            </a>
+            </Button>
           </div>
         )}
       </nav>
+
+      <Dialog open={isContactDialogOpen} onOpenChange={setIsContactDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Contact Me</DialogTitle>
+            <DialogDescription>
+              To get in touch please mail me at firstdraftfilmworks@gmail.com
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
     </header>
   );
 };
