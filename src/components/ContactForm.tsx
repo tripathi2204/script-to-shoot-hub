@@ -1,65 +1,77 @@
+import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/hooks/use-toast";
-import { z } from "zod";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
-const contactSchema = z.object({
-  name: z.string().trim().min(1, { message: "Name is required" }).max(100, { message: "Name must be less than 100 characters" }),
-  email: z.string().trim().email({ message: "Invalid email address" }).max(255, { message: "Email must be less than 255 characters" }),
-  phone: z.string().trim().min(1, { message: "Phone is required" }).max(20, { message: "Phone must be less than 20 characters" }),
-  message: z.string().trim().min(1, { message: "Message is required" }).max(1000, { message: "Message must be less than 1000 characters" })
-});
+const SERVICE_OPTIONS = [
+  "Shooting Schedule",
+  "Script Breakdown",
+  "Film Budgeting"
+];
+
+const PROJECT_TYPE_OPTIONS = [
+  "Short Film",
+  "Feature",
+  "Series"
+];
+
+const BUDGET_OPTIONS = [
+  "Under $3,000,000",
+  "$3,000,001 - $6,250,000",
+  "$6,250,001 - $9,000,000",
+  "$9,000,001 - $12,500,000",
+  "$12,500,001 - $15,000,000",
+  "Over $15,000,000"
+];
+
+const WEBHOOK_URL = "https://n8n.n8n.in.net/webhook/50a824c3-a87c-493f-922e-80ecbbdfaed4";
 
 const ContactForm = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: ""
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { toast } = useToast();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitSuccessful },
+    reset,
+    setValue,
+  } = useForm();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const [submitError, setSubmitError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const onSubmit = async (data: any) => {
+    // Honeypot: If filled, block submission
+    if (data.middleName) {
+      setSubmitError("Spam detected.");
+      return;
+    }
+
+    setSubmitError("");
+    setIsSubmitting(true);
 
     try {
-      const validated = contactSchema.parse(formData);
-      setIsSubmitting(true);
-
-      const response = await fetch("https://n8n.n8n.in.net/webhook/50a824c3-a87c-493f-922e-80ecbbdfaed4", {
+      const res = await fetch(WEBHOOK_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(validated),
+        body: JSON.stringify(data),
       });
-
-      if (response.ok) {
-        toast({
-          title: "Message sent!",
-          description: "Thank you for your inquiry. I'll get back to you soon.",
-        });
-        setFormData({ name: "", email: "", phone: "", message: "" });
-      } else {
-        throw new Error("Failed to send message");
-      }
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        toast({
-          title: "Validation Error",
-          description: error.errors[0].message,
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Error",
-          description: "Failed to send message. Please try again.",
-          variant: "destructive",
-        });
-      }
+      if (!res.ok) throw new Error(await res.text());
+      reset();
+      setValue("service", "");
+      setValue("projectType", "");
+      setValue("projectBudgetRange", "");
+    } catch (e: any) {
+      setSubmitError(e.message || "Submission failed.");
     } finally {
       setIsSubmitting(false);
     }
@@ -73,48 +85,164 @@ const ContactForm = () => {
           <p className="text-center text-muted-foreground mb-12 text-lg">
             Ready to streamline your production? Let's discuss your project.
           </p>
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-6"
+            autoComplete="off"
+          >
+            {/* Honeypot field */}
+            <input
+              type="text"
+              {...register("middleName")}
+              tabIndex={-1}
+              autoComplete="off"
+              style={{ display: "none" }}
+            />
+
             <div>
+              <Label htmlFor="name" className="text-foreground">Name *</Label>
               <Input
-                placeholder="Your Name"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                required
-                className="bg-card border-border text-foreground"
+                id="name"
+                type="text"
+                {...register("name", { required: "Name is required" })}
+                className="bg-card border-border text-foreground mt-2"
               />
+              {errors.name && (
+                <p className="text-destructive text-sm mt-1">{String(errors.name.message)}</p>
+              )}
             </div>
+
             <div>
+              <Label htmlFor="email" className="text-foreground">Email *</Label>
               <Input
+                id="email"
                 type="email"
-                placeholder="Your Email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                required
-                className="bg-card border-border text-foreground"
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/i,
+                    message: "Invalid email address",
+                  },
+                })}
+                className="bg-card border-border text-foreground mt-2"
               />
+              {errors.email && (
+                <p className="text-destructive text-sm mt-1">{String(errors.email.message)}</p>
+              )}
             </div>
+
             <div>
+              <Label htmlFor="productionHouse" className="text-foreground">Production House</Label>
               <Input
-                type="tel"
-                placeholder="Your Phone"
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                required
-                className="bg-card border-border text-foreground"
+                id="productionHouse"
+                type="text"
+                {...register("productionHouse")}
+                className="bg-card border-border text-foreground mt-2"
               />
             </div>
+
             <div>
-              <Textarea
-                placeholder="Tell me about your project"
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                required
-                rows={6}
-                className="bg-card border-border text-foreground resize-none"
+              <Label htmlFor="country" className="text-foreground">Country *</Label>
+              <Input
+                id="country"
+                type="text"
+                {...register("country", { required: "Country is required" })}
+                className="bg-card border-border text-foreground mt-2"
+              />
+              {errors.country && (
+                <p className="text-destructive text-sm mt-1">{String(errors.country.message)}</p>
+              )}
+            </div>
+
+            <div>
+              <Label htmlFor="service" className="text-foreground">Service of Interest *</Label>
+              <Select
+                onValueChange={(value) => setValue("service", value, { shouldValidate: true })}
+              >
+                <SelectTrigger className="bg-card border-border text-foreground mt-2">
+                  <SelectValue placeholder="Select..." />
+                </SelectTrigger>
+                <SelectContent>
+                  {SERVICE_OPTIONS.map((opt) => (
+                    <SelectItem key={opt} value={opt}>
+                      {opt}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <input type="hidden" {...register("service", { required: "Select a service" })} />
+              {errors.service && (
+                <p className="text-destructive text-sm mt-1">{String(errors.service.message)}</p>
+              )}
+            </div>
+
+            <div>
+              <Label htmlFor="projectType" className="text-foreground">Project Type</Label>
+              <Select onValueChange={(value) => setValue("projectType", value)}>
+                <SelectTrigger className="bg-card border-border text-foreground mt-2">
+                  <SelectValue placeholder="Select..." />
+                </SelectTrigger>
+                <SelectContent>
+                  {PROJECT_TYPE_OPTIONS.map((opt) => (
+                    <SelectItem key={opt} value={opt}>
+                      {opt}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div>
+              <Label htmlFor="scriptLength" className="text-foreground">Script Length</Label>
+              <Input
+                id="scriptLength"
+                type="text"
+                {...register("scriptLength")}
+                className="bg-card border-border text-foreground mt-2"
               />
             </div>
-            <Button 
-              type="submit" 
+
+            <div>
+              <Label htmlFor="projectBudgetRange" className="text-foreground">Project Budget Range *</Label>
+              <Select
+                onValueChange={(value) => setValue("projectBudgetRange", value, { shouldValidate: true })}
+              >
+                <SelectTrigger className="bg-card border-border text-foreground mt-2">
+                  <SelectValue placeholder="Select..." />
+                </SelectTrigger>
+                <SelectContent>
+                  {BUDGET_OPTIONS.map((opt) => (
+                    <SelectItem key={opt} value={opt}>
+                      {opt}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <input type="hidden" {...register("projectBudgetRange", { required: "Select a budget range" })} />
+              {errors.projectBudgetRange && (
+                <p className="text-destructive text-sm mt-1">
+                  {String(errors.projectBudgetRange.message)}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <Label htmlFor="message" className="text-foreground">Your Message</Label>
+              <Textarea
+                id="message"
+                {...register("message")}
+                className="bg-card border-border text-foreground resize-none mt-2"
+                rows={4}
+              />
+            </div>
+
+            {submitError && <p className="text-destructive">{submitError}</p>}
+            {isSubmitSuccessful && (
+              <p className="text-green-600">Thank you! We'll reply soon.</p>
+            )}
+
+            <Button
+              type="submit"
               className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
               disabled={isSubmitting}
             >

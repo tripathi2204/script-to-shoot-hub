@@ -7,28 +7,28 @@ import {
 
 const faqs = [
   {
-    question: "What is included in a shooting schedule?",
-    answer: "A shooting schedule includes a colored stripboard schedule, one-liners for each scene, daybreaks for day divisions, an editable source file in industry-standard format, PDF export, and a Day-Out-of-Day (DOOD) report for cast scheduling."
+    question: "How can you help filmmakers?",
+    answer: "I offer a complete suite of pre-production services designed to give your project a competitive edge—budgets, schedule, and more. By integrating advanced workflows, I make these services significantly faster, more accurate, and cost-effective without sacrificing quality. Whether you're seeking funding, pitching to studios, or preparing for production, I ensure your materials are industry-ready and compelling enough to grab attention."
   },
   {
-    question: "How detailed is the script breakdown?",
-    answer: "The script breakdown is extremely detailed, covering every production element scene-by-scene including cast, extras, props, wardrobe, costumes, makeup, hair, sets, set dressing, SFX, VFX, vehicles, animals, and more. It includes breakdown sheets, one-liners, categorized elements, and eliminates duplicate scenes."
+    question: "Are there exceptions to the turnaround time?",
+    answer: "While the majority of projects are completed within 3–5 business days, turnaround times can vary based on the complexity, scope, and number of deliverables required. Projects with more intricate research, multiple creative elements, or large asset requirements may take longer."
   },
   {
-    question: "What does a film budget include?",
-    answer: "A film budget includes a comprehensive topsheet with overall budget details, Above-the-Line (ATL) and Below-the-Line (BTL) costs, departmental categories, union fringe rates, an editable source file in industry format, and PDF export for easy sharing with investors and stakeholders."
+    question: "Is my intellectual property safe with you?",
+    answer: "All workflows are secured with password protection and handled with strict confidentiality. But still I recommend that all creators register their work with the Writers Guild of America West (WGAW) Registry, which is the industry standard for creating legal evidence of authorship. This extra step safeguards your creative rights, whether or not you choose to proceed with my services."
   },
   {
-    question: "How long does it take to complete a project?",
-    answer: "Project turnaround time varies depending on the scope and complexity of your production. After reviewing your script and requirements, I'll provide a realistic timeline. I pride myself on fast, efficient delivery without compromising quality."
+    question: "What if I don't like the final work?",
+    answer: "Your satisfaction is central to my process. After delivering the first draft, you'll have up to three days to review it and request changes. Depending on the package selected, you can receive up to two free revisions, during which I will make all necessary corrections, refinements, and creative adjustments to align with your vision."
   },
   {
-    question: "Do you offer revisions?",
-    answer: "Yes! After receiving your finalized files, you have the option to request revisions to ensure the deliverables meet your exact needs and expectations."
+    question: "In what format will I receive my deliveries?",
+    answer: "All final materials are delivered in industry-standard formats, complete with source files, making them fully compatible with any production workflow. This ensures your project can seamlessly transition from pre-production into the filming stage without reformatting delays. If you have specific format or software requirements, you can discuss them before placing your order."
   },
   {
-    question: "What formats do you provide the files in?",
-    answer: "All deliverables are provided in industry-standard editable formats (such as Movie Magic Scheduling, Movie Magic Budgeting, or compatible alternatives) along with PDF exports for easy sharing and distribution."
+    question: "Who can use your services?",
+    answer: "My services are ideal for anyone in the film and television industry who needs polished, professional pre-production materials. This includes screenwriters pitching to networks or development executives, studios seeking to attach agents or talent, and independent filmmakers aiming to reduce costs with remote production support. Whether you're in early concept development or on the verge of production, I can help you present your project in the strongest possible way."
   }
 ];
 

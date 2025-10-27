@@ -4,19 +4,23 @@ import { Star } from "lucide-react";
 const testimonials = [
   {
     name: "Roger Margulies",
-    review: "Outstanding work! The shooting schedule was meticulously organized and helped us save both time and money during production. Highly professional service."
+    title: "Riveting River Ent. Inc.",
+    review: "....he has created numerous budgets for Riveting River Entertainment and we couldn't be more satisfied! We are most pleased with his attention to detail...."
   },
   {
     name: "Stogie Kenyatta",
-    review: "The script breakdown was incredibly detailed and thorough. Every element was accounted for, which made our production process seamless. Will definitely work together again!"
+    title: "Actor, Writer, & Comedian",
+    review: "....a fantastic collaborative experience, he was efficient, creative & worked fast. I am very happy with the work he did on the budget as well as the Script deck...."
   },
   {
     name: "Nkem Ifejika",
-    review: "Excellent budgeting service! The preliminary budget was comprehensive and investor-ready. It gave us the confidence we needed to move forward with our project."
+    title: "Producer & Presenter",
+    review: "....very communicative from the very beginning in wanting to understand what I wanted. Followed up with pertinent questions and took on my ideas/concerns...."
   },
   {
     name: "Kenneth Brown",
-    review: "Professional, efficient, and reliable. The turnaround time was impressive without compromising quality. This is the line producer every filmmaker needs!"
+    title: "South Beach Ent. Group",
+    review: "I have been working with Shubham on many of my projects. He always delivers above and beyond my expectations! Highly recommend!"
   }
 ];
 
@@ -36,7 +40,10 @@ const Testimonials = () => {
                   ))}
                 </div>
                 <p className="text-muted-foreground italic leading-relaxed">"{testimonial.review}"</p>
-                <p className="font-semibold text-foreground">— {testimonial.name}</p>
+                <div>
+                  <p className="font-semibold text-foreground">— {testimonial.name}</p>
+                  <p className="text-sm text-muted-foreground">{testimonial.title}</p>
+                </div>
               </CardContent>
             </Card>
           ))}

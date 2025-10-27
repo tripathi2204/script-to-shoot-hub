@@ -10,7 +10,7 @@ const services = [
     title: "Shooting Schedule",
     tagline: "Colored shooting stripboard",
     image: shootingScheduleImg,
-    description: "Using AI-assisted sorting and industry-standard software, I create accurate, cost-effective, and color-coded stripboard schedules optimized for shooting order and time. Leveraging my years of expertise, I tighten timelines to ensure a smooth production flow that maximizes budget efficiency.",
+    description: "Using industry-standard software, I create accurate, cost-effective, and color-coded stripboard schedules optimized for shooting order and time. Leveraging my years of expertise, I tighten timelines to ensure a smooth production flow that maximizes budget efficiency. Every schedule is tailored to align creative priorities with practical on-ground execution, ensuring seamless coordination across all departments.",
     highlights: [
       "Colored Stripboard schedule",
       "One-Liners summarizing each scene",
@@ -25,7 +25,7 @@ const services = [
     title: "Script Breakdown",
     tagline: "Scene-by-scene script breakdown",
     image: scriptBreakdownImg,
-    description: "Using AI-powered workflows and expert oversight, I deliver detailed, scene-by-scene script breakdowns that identify every key production element — including cast and extras, props, wardrobe and costumes, makeup and hair, sets and set dressing, special effects (SFX) and visual effects (VFX), vehicles, animals, and more. I also provide precise one-liners to ensure nothing is overlooked, giving your team everything they need to stay on budget, on schedule, and fully prepared for production.",
+    description: "Using industry-standard software and expert oversight, I deliver detailed, scene-by-scene script breakdowns that identify every key production element — including cast and extras, props, wardrobe and costumes, makeup and hair, sets and set dressing, special effects (SFX) and visual effects (VFX), vehicles, animals, and more. I also provide precise one-liners to ensure nothing is overlooked, giving your team everything they need to stay on budget, on schedule, and fully prepared for production.",
     highlights: [
       "Scene-by-Scene Breakdown Sheets",
       "One-Liners summarizing each scene",
@@ -40,7 +40,7 @@ const services = [
     title: "Film Budgeting",
     tagline: "Preliminary Budgets with topsheet",
     image: filmBudgetingImg,
-    description: "Using AI-powered workflows and industry-standard software, I create detailed, investor-ready budgets that cover every aspect of your production — from Above-the-Line (ATL) costs like script development and key talent, to Below-the-Line (BTL) production costs like crew, locations, and equipment, and post-production expenses such as editing and VFX. Incorporating the latest union and non-union rates, each budget provides a clear, comprehensive financial plan that minimizes surprises and ensures funding covers your entire project.",
+    description: "Using industry-standard software, I create detailed, investor-ready budgets that cover every aspect of your production — from Above-the-Line (ATL) costs like script development and key talent, to Below-the-Line (BTL) production costs like crew, locations, and equipment, and post-production expenses such as editing and VFX. Incorporating the latest union and non-union rates, each budget provides a clear, comprehensive financial plan that minimizes surprises and ensures funding covers your entire project.",
     highlights: [
       "Topsheet will overall budget details",
       "ATL & BTL costs listed out",

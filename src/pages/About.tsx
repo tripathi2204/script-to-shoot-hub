@@ -88,19 +88,6 @@ const About = () => {
           </div>
         </section>
 
-        {/* Mission Section */}
-        <section className="py-20 bg-background">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center space-y-6">
-              <h2 className="text-4xl font-bold text-foreground">My Mission</h2>
-              <p className="text-xl text-muted-foreground leading-relaxed">
-                To empower filmmakers with professional line production services that streamline their creative process, 
-                optimize their budgets, and deliver results that exceed industry standards. I'm committed to being a 
-                reliable partner in bringing impactful stories to life.
-              </p>
-            </div>
-          </div>
-        </section>
       </main>
       <Footer />
     </div>
